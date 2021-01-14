@@ -1,0 +1,43 @@
+--Creamos base de datos
+CREATE DATABASE PruebaVB_198810045
+
+USE PruebaVB_198810045
+--
+--PERSONA
+--
+CREATE TABLE Persona (
+    ID_Persona int not null,
+    Rut varchar(12) not null,
+	Nombre varchar(50) not null,
+	Apellido varchar(50) not null,
+	Edad int not null,
+	Fecha_Nacimiento Datetime not null,
+	constraint pk1 primary key(ID_Persona)
+	);
+
+INSERT INTO persona (ID_Persona, Rut, Nombre, Apellido, Edad, Fecha_Nacimiento)
+VALUES (1, '19.881.004-5', 'Claudio', 'Sepulveda', 22, '1998-05-14');
+
+SELECT * FROM persona
+
+--
+--EMPLEADO
+--
+CREATE TABLE Empleado (
+    ID_Empleado int not null,
+	ID_Persona int not null,
+	Correo varchar(50) not null,
+	Area_trabajo varchar(50) not null,
+	constraint pk2 primary key(ID_Empleado),
+	);
+--Relaciones 
+ALTER TABLE Empleado
+ADD CONSTRAINT FK_pers_id
+FOREIGN KEY (ID_Persona) REFERENCES Persona (ID_Persona)
+
+INSERT INTO Empleado (ID_Empleado, ID_Persona, Correo, Area_trabajo)
+VALUES (1, 1,'claud.sepulved@gmail.com', 'TI');
+
+
+SELECT * FROM Empleado
+

@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PruebaVB_198810045Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="int" Nullable="false" />
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Area_trabajo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="ID_Persona" />
+          </Key>
+          <Property Name="ID_Persona" Type="int" Nullable="false" />
+          <Property Name="Rut" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+          <Property Name="Fecha_Nacimiento" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_pers_id">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PruebaVB_198810045ModelStoreContainer">
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_pers_id" Association="Self.FK_pers_id">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaVB_198810045Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Area_trabajo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_pers_id" FromRole="Empleado" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="ID_Persona" />
+          </Key>
+          <Property Name="ID_Persona" Type="Int32" Nullable="false" />
+          <Property Name="Rut" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_Nacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_pers_id" FromRole="Persona" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK_pers_id">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="ID_Persona" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="ID_Persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PruebaVB_198810045Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+          <EntitySet Name="Personas" EntityType="Self.Persona" />
+          <AssociationSet Name="FK_pers_id" Association="Self.FK_pers_id">
+            <End Role="Persona" EntitySet="Personas" />
+            <End Role="Empleado" EntitySet="Empleadoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaVB_198810045ModelStoreContainer" CdmEntityContainer="PruebaVB_198810045Entities">
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="PruebaVB_198810045Model.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Area_trabajo" ColumnName="Area_trabajo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personas">
+            <EntityTypeMapping TypeName="PruebaVB_198810045Model.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="ID_Persona" ColumnName="ID_Persona" />
+                <ScalarProperty Name="Rut" ColumnName="Rut" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Fecha_Nacimiento" ColumnName="Fecha_Nacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
